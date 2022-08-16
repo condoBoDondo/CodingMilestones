@@ -1,0 +1,38 @@
+﻿@model CarDealership.UI.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "HOME";
+}
+
+<!-- jumbotron -->
+<!-- todo: scroll thru all specials -->
+<div class="p-4 mb-4 bg-light rounded-3">
+    <div class="container-fluid p-4 mb-3 rounded-3 bg-primary bg-opacity-10">
+        <div class="row">
+            <div class="col-2">
+                <img class="img-fluid" src="~/Images/sale.png" />
+            </div>
+            <div class="col-10">
+                <h1 class="display-5 fw-bold">@Model.Specials.ToList().FirstOrDefault().Title</h1>
+                <p class="col-md-8 fs-4">
+                    @Model.Specials.ToList().FirstOrDefault().Description
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- featured vehicles -->
+<h3>Featured Vehicles</h3>
+<div class="row">
+    @foreach(var vehicle in Model.Vehicles)
+    {
+        <div class="col-6 col-sm-4 col-md-3 text-center">
+            <button class="btn p-2 mt-4 rounded-3 bg-light" onclick="location.href='@Url.Action("Details", "Inventory", new { id = vehicle.VehicleId })'">
+                <img class="img-fluid" src="@Url.Content("~/Images/"+vehicle.ImageFileName)" /><br />
+                @vehicle.Year @vehicle.MakeName @vehicle.ModelName<br />
+                <strong>@vehicle.SalePrice.ToString("c")</strong>
+            </button>
+        </div>
+    }
+</div>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--
+author: Conner Jensen
+created: 3-22-21
+revised: 4-6-21
+-->
+<html lang="en">
+
+	<head>
+		<title>Big Biff's Contact</title>
+		
+		<!-- Bootstrap CDN copied from https://getbootstrap.com/docs/4.1/getting-started/introduction/ -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+			integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" /> 
+		
+		<link href="styles/restaurantStyles.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div class="container">
+	
+			<header class="jumbotron">
+				<h1>Big Biff's Beef Barn</h1>
+				<h3 class="font-italic">The Heart of the Countryside</h3>
+				<h4 class="text-right mt-5">New location opening soon in <strong>Beefville, MN</strong></h4>
+			</header>
+			
+			<nav>
+				<a class="btn badge-pill" href="index.html">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="#D8C1B9" style="vertical-align: -2px;">
+					<path fill-rule="evenodd" d="M8.156 1.835a.25.25 0 00-.312 0l-5.25 4.2a.25.25 0 00-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 01.75-.75h3.5a.75.75 0 01.75.75v5.25h2.75a.25.25 0 00.25-.25V6.23a.25.25 0 00-.094-.195l-5.25-4.2zM6.906.664a1.75 1.75 0 012.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0113.25 15h-3.5a.75.75 0 01-.75-.75V9H7v5.25a.75.75 0 01-.75.75h-3.5A1.75 1.75 0 011 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2h-.001z"></path>
+					</svg>
+					Home</a>
+				<a class="btn badge-pill" href="menu.html">Menu</a>
+				<a class="btn badge-pill" href="contact.html">Contact</a>
+			</nav>
+			
+			<section>
+				<noscript>
+					<p><strong>Note: site is best viewed with JavaScript enabled.</strong></p>
+				</noscript>
+				
+				<form class="needs-validation" action="fakePage.html" method="POST" novalidate>
+					<div class="form-group row">
+						<label for="inputName" class="col-sm-3 col-form-label"><strong>Name:</strong></label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="inputName" placeholder="Name" required>
+							<div class="invalid-feedback">Please enter your name.</div>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="inputEmail" class="col-sm-3 col-form-label"><strong>Email:</strong></label>
+						<div class="col-sm-9">
+							<input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
+							<div class="invalid-feedback">Please enter your email address.</div>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="inputPhone" class="col-sm-3 col-form-label"><strong>Phone:</strong></label>
+						<div class="col-sm-9">
+							<input type="phone" class="form-control" id="inputPhone" placeholder="Phone" required>
+							<div class="invalid-feedback">Please enter your phone number.</div>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="inputReason" class="col-sm-3 col-form-label">Reason for Inquiry:</label>
+						<div class="col-sm-9">
+							<select class="form-control" id="inputReason">
+								<option value="catering" selected>Catering</option>
+								<option value="private">Private Party</option>
+								<option value="feedback">Feedback</option>
+								<option value="other">Other</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="inputExtra" class="col-sm-3 col-form-label">Additional Information:</label>
+						<div class="col-sm-9">
+							<textarea class="form-control" id="inputExtra" rows="3"></textarea>
+						</div>
+					</div>
+					
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-3 pt-0">Have you visited the restaurant?:</legend>
+							<div class="col-sm-9">
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="inputVisited" id="visitedYes" value="yes" checked>
+									<label class="form-check-label" for="visitedYes">Yes</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="inputVisited" id="visitedNo" value="no" checked>
+									<label class="form-check-label" for="visitedNo">No</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-3 pt-0">Best days to contact you:</legend>
+							<div class="col-sm-9">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="inputDays" id="daysMonday" value="Monday">
+									<label class="form-check-label" for="daysMonday">Monday</label>
+								</div>
+								
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="inputDays" id="daysTuesday" value="Tuesday">
+									<label class="form-check-label" for="daysTuesday">Tuesday</label>
+								</div>
+								
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="inputDays" id="daysWednesday" value="Wednesday">
+									<label class="form-check-label" for="daysWednesday">Wednesday</label>
+								</div>
+								
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="inputDays" id="daysThursday" value="Thursday">
+									<label class="form-check-label" for="daysThursday">Thursday</label>
+								</div>
+								
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="inputDays" id="daysFriday" value="Friday">
+									<label class="form-check-label" for="daysFriday">Friday</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					
+					<div class="form-group row">
+						<div class="col-form-label col-sm-3 pt-0"></div>
+						<div class="col-sm-9">
+							<button type="submit" class="btn badge-pill" style="font-size: 1.1em;">Submit</button>
+						</div>
+					</div>
+				</form>
+				
+				<script> // validate inputs -- code used from Bootstrap forms page
+					(function() {
+						'use strict';
+						window.addEventListener('load', function() {
+							var forms = document.getElementsByClassName('needs-validation');
+							
+							var validation = Array.prototype.filter.call(forms, function(form) {
+								form.addEventListener('submit', function(event) {
+									if (form.checkValidity() === false) {
+										event.preventDefault();
+										event.stopPropagation();
+									}
+									form.classList.add('was-validated');
+								}, false);
+							});
+						}, false);
+					})();
+				</script>
+				
+			</section>
+			
+			<footer>
+				<h3>
+					9090 Fudge Rd, Cowville, MN 55555<br/><br/>
+					(555) 555-5555
+				</h3>
+			</footer>
+			
+		</div>
+	</body>
+</html>

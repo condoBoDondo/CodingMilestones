@@ -1,0 +1,106 @@
+﻿@model CarDealership.UI.Models.SaleReportViewModel
+
+@{
+    ViewBag.Title = "ADMIN - SALES REPORTS";
+}
+
+<h3>Sales Report</h3>
+
+<!-- search form -->
+<form id="searchForm" class="row p-2 bg-light rounded-3">
+    <div class="row">
+        <strong>Filters</strong>
+    </div>
+    <div class="row gy-2 gy-lg-0 mb-2">
+        <div class="col-12 col-lg-4">
+            <label class="col-form-label">User</label>
+            @Html.DropDownList("filterSalesperson", (IEnumerable<SelectListItem>)ViewBag.Users, "- All -", new { @class = "form-select" })
+            @*Html.DropDownList("filterSalesperson", new SelectList(ViewBag.UserEmails), new { @class = "form-select" })*@
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="row">
+                <label class="col-form-label" for="minDate">From Date</label>
+                <input type="text" class="form-control" id="minDate" />
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="row">
+                <label class="col-form-label" for="maxDate">To Date</label>
+                <input type="text" class="form-control" id="maxDate" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-grid gap-2 col-6 col-lg-4 mx-auto">
+            <button type="submit" onclick="search()" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<!-- results table -->
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>User</td>
+                <td>Email</td>
+                <td>Total Sales</td>
+                <td>Total Vehicles</td>
+            </tr>
+        </thead>
+
+        <tbody id="searchResults">
+            @foreach (var report in Model.SaleReports)
+            {
+                <tr>
+                    <td>@report.FirstLastName</td>
+                    <td>@report.Email</td>
+                    <td>@report.TotalSales.ToString("c")</td>
+                    <td>@report.TotalVehicles</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#searchForm').submit(function (e) { // on clicking search button
+                search();
+                return false; // not submitting to server; staying on current page
+            });
+        });
+
+        function search() {
+            var params = ''; // get params from form input
+            params += 'Salesperson=' + $('#filterSalesperson').val() + '&';
+            params +=     'MinDate=' +           $('#minDate').val() + '&';
+            params +=     'MaxDate=' +           $('#maxDate').val();
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/report/sale?' + params,
+                success: function (results) {
+                    // clear search results
+                    $('#searchResults').empty();
+
+                    // add search results
+                    $.each(results, function (index, report) {
+                        // get sales total formatted with commas and two decimal places
+                        var cashAmount = report.TotalSales.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+
+                        var html = '<tr><td>' + report.FirstLastName + '</td><td>' + report.Email +
+                            '</td><td>$' + cashAmount + '</td><td>' + report.TotalVehicles + 
+                            '</td></tr>';
+                        $('#searchResults').append(html.toString());
+                    });
+                },
+                error: function () {
+                    alert('Error performing search. Try again later.');
+                }
+            });
+        }
+    </script>
+}

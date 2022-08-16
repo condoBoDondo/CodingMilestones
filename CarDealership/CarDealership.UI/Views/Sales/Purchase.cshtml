@@ -1,0 +1,164 @@
+﻿@model CarDealership.UI.Models.PurchaseViewModel
+@{
+    ViewBag.Title = "SALES - PURCHASE";
+}
+
+<h3>Purchase Vehicle</h3>
+
+@if (Model.VehicleDetails != null)
+{
+    <!-- vehicle details panel -->
+    <div class="row p-2 mt-4 mb-3 rounded-3 bg-light">
+
+        <div class="col-3">
+            <strong>@Model.VehicleDetails.Year @Model.VehicleDetails.MakeName @Model.VehicleDetails.ModelName</strong>
+            <img class="img-fluid" src="@Url.Content("~/Images/"+Model.VehicleDetails.ImageFileName)" />
+        </div>
+        <div class="col-9">
+            <div class="row">
+                <div class="col-4">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="text-end"><strong>Body Style:</strong></td>
+                                <td>@Model.VehicleDetails.BodyStyleName</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>Trans:</strong></td>
+                                <td>@Model.VehicleDetails.TransmissionName</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>Color:</strong></td>
+                                <td>@Model.VehicleDetails.ExteriorName</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="text-end"><strong>Interior:</strong></td>
+                                <td>@Model.VehicleDetails.InteriorName</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>Mileage:</strong></td>
+                                <td>
+                                @if (Model.VehicleDetails.Mileage > 1000)
+                                    {@Model.VehicleDetails.Mileage<text> (Used)</text>}
+                                else
+                                    {@Model.VehicleDetails.Mileage<text> (New)</text>}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>VIN #:</strong></td>
+                                <td>@Model.VehicleDetails.VIN</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="text-end"><strong>Sale Price:</strong></td>
+                                <td>@Model.VehicleDetails.SalePrice.ToString("c")</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>MSRP:</strong></td>
+                                <td>@Model.VehicleDetails.MSRP.ToString("c")</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="text-end" width="100px"><strong>Description:</strong></td>
+                                <td>@Model.VehicleDetails.Description</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- purchase form -->
+    <div class="p-4 mb-4 bg-light rounded-3">
+        @using (Html.BeginForm("Purchase", "Sales", FormMethod.Post, new { id = "formPurchase", @class = "row g-3", enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary()
+            @Html.HiddenFor(m => m.VehicleDetails.VehicleId)
+            @Html.HiddenFor(m => m.VehicleDetails.SalePrice)
+            <div class="col-md-6">
+                <label class="form-label">Customer Name</label>
+                @Html.TextBoxFor(m => m.Sale.CustomerName, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Phone</label>
+                @Html.TextBoxFor(m => m.Sale.Phone, new { @class = "form-control" })
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Email</label>
+                @Html.TextBoxFor(m => m.Sale.Email, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Address 1</label>
+                @Html.TextBoxFor(m => m.Sale.Address1, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Address 2</label>
+                @Html.TextBoxFor(m => m.Sale.Address2, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">City</label>
+                @Html.TextBoxFor(m => m.Sale.City, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">State</label>
+                @Html.DropDownListFor(m => m.Sale.StateId, Model.States, new { @class = "form-select" })
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Zip</label>
+                @Html.TextBoxFor(m => m.Sale.Zip, new { @class = "form-control" })
+            </div>
+
+            <hr />
+
+            <div class="col-md-6">
+                <label class="form-label">Purchase Price</label>
+                @Html.TextBoxFor(m => m.Sale.PurchasePrice, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Purchase Type</label>
+                @Html.DropDownListFor(m => m.Sale.PurchaseTypeId, Model.PurchaseTypes, new { @class = "form-select" })
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-success">Make Purchase</button>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="row p-2 mt-4 rounded-3 bg-light">
+        <p>The specified vehicle could not be found.</p>
+    </div>
+}

@@ -1,0 +1,126 @@
+﻿@model CarDealership.UI.Models.VehicleEditViewModel
+
+@{
+    ViewBag.Title = "ADMIN - ADD VEHICLE";
+}
+
+<h3>Edit Vehicle</h3>
+
+<!-- edit form -->
+<div class="p-4 mb-4 bg-light rounded-3">
+    @using (Html.BeginForm("VehicleEdit", "Admin", FormMethod.Post, new { id = "formVehicle", @class = "row g-3", enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary()
+        @Html.HiddenFor(m => m.Vehicle.VehicleId)
+        <div class="col-md-6">
+            <label class="form-label">Make</label>
+            @Html.DropDownListFor(m => m.Vehicle.MakeId, Model.Makes, new { @class = "form-select", @onchange = "getModels()" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Model</label>
+            @Html.DropDownListFor(m => m.Vehicle.ModelId, Model.Models, new { @class = "form-select" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Body Style</label>
+            @Html.DropDownListFor(m => m.Vehicle.BodyStyleId, Model.BodyStyles, new { @class = "form-select" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Year</label>
+            @Html.TextBoxFor(m => m.Vehicle.Year, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Exterior</label>
+            @Html.DropDownListFor(m => m.Vehicle.ExteriorId, Model.Exteriors, new { @class = "form-select" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Interior</label>
+            @Html.DropDownListFor(m => m.Vehicle.InteriorId, Model.Interiors, new { @class = "form-select" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Transmission</label>
+            @Html.DropDownListFor(m => m.Vehicle.TransmissionId, Model.Transmissions, new { @class = "form-select" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Mileage</label>
+            @Html.TextBoxFor(m => m.Vehicle.Mileage, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">VIN #</label>
+            @Html.TextBoxFor(m => m.Vehicle.VIN, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">MSRP</label>
+            @Html.TextBoxFor(m => m.Vehicle.MSRP, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Sale Price</label>
+            @Html.TextBoxFor(m => m.Vehicle.SalePrice, new { @class = "form-control" })
+        </div>
+        <div class="col-12">
+            <label class="form-label">Description</label>
+            @Html.TextAreaFor(m => m.Vehicle.Description, new { @class = "form-control" })
+        </div>
+        <div class="col-8">
+            @Html.HiddenFor(m => m.Vehicle.ImageFileName)
+            <img class="img-fluid" src="@Url.Content("~/Images/" + Model.Vehicle.ImageFileName)" />
+        </div>
+        <div class="col-12">
+            <label class="form-label">Replace Image</label>
+            <input id="ImageUpload" name="ImageUpload" type="file" class="form-control" />
+        </div>
+        <div class="col-12">
+            <label class="form-label">Feature this Vehicle</label>
+            @Html.CheckBoxFor(m => m.IsFeatured, new { @class = "form-check-input" })
+        </div>
+        <div class="col-3">
+            <button class="btn btn-success">Save</button>
+        </div>
+    }
+    @using (Html.BeginForm("VehicleDelete", "Admin", new { id = Model.Vehicle.VehicleId }, FormMethod.Post))
+    {
+        <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this vehicle?');">Delete</button>
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+        // hasLoaded: whether page has attempted setting model's ModelId as its dropdown value
+        var hasLoaded = false;
+
+        $(document).ready(function () {
+            getModels();
+        });
+
+        function getModels() {
+            var selectedMake = $('#Vehicle_MakeId').val();
+            var params = 'makeId=' + selectedMake // get selected make
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/vehicle/modelByMake?' + params,
+                success: function (results) {
+                    // clear search results, enable use of dropdown
+                    $('#Vehicle_ModelId').empty();
+
+                    // add search results
+                    $.each(results, function (index, model) {
+                        var html = '<option value="' + model.ModelId + '">' + model.ModelName + '</option>';
+                        //alert(model.ModelName);
+                        $('#Vehicle_ModelId').append(html.toString());
+                    });
+
+                    // set selected value if you got here from page reload
+                    if (!hasLoaded) {
+                        var valueToLoad = @Model.Vehicle.ModelId;
+                        $('#Vehicle_ModelId').val(valueToLoad == 0 ? 1 : valueToLoad);
+                        hasLoaded = true;
+                    }
+                },
+                error: function () {
+                    alert('Error obtaining Models.');
+                }
+            });
+        }
+    </script>
+}

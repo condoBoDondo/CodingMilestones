@@ -1,0 +1,37 @@
+﻿@model IEnumerable<CarDealership.Models.Queries.UserShort>
+
+@{
+    ViewBag.Title = "ADMIN - USERS INDEX";
+}
+
+<h3>Users</h3>
+@Html.ActionLink("Add new User", "UserAdd", "Admin", null, new { @class = "btn btn-success" })
+
+<!-- table of users -->
+<div class="row">
+    <div class="p-4 mb-4 bg-light rounded-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Last Name</td>
+                    <td>First Name</td>
+                    <td>Email</td>
+                    <td>Role</td>
+                    <td></td> <!-- edit button column -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.LastName</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.Email</td>
+                        <td>@user.RoleName</td>
+                        <td>@Html.ActionLink("Edit", "UserEdit", "Admin", new { id = user.Id }, new { @class = "btn btn-primary" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

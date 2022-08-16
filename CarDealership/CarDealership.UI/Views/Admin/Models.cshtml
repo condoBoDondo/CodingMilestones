@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNet.Identity;
+
+@model CarDealership.UI.Models.ModelAddViewModel
+
+@{
+    ViewBag.Title = "ADMIN - MODELS";
+}
+
+<h3>Models</h3>
+
+<!-- add form -->
+<div class="row">
+    <div class="p-4 mb-4 bg-light rounded-3">
+        @using (Html.BeginForm("ModelAdd", "Admin", FormMethod.Post, new { id = "formModel", enctype = "multipart/form-data" }))
+        {
+        @Html.ValidationSummary()
+        <div class="row mb-2">
+            <div class="col-5">
+                <div class="row">
+                    <label for="formModelName" class="col-3 col-form-label"><strong>New Model</strong></label>
+                    <div class="col-9">
+                        @Html.TextBoxFor(m => m.ModelModel.ModelName, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-5">
+                <div class="row">
+                    <label for="formModelMake" class="col-3 col-form-label"><strong>Make</strong></label>
+                    <div class="col-9">
+                        @Html.DropDownListFor(m => m.ModelModel.MakeId, Model.Makes, new { @class = "form-select" })
+                    </div>
+                </div>
+            </div>
+
+            @Html.HiddenFor(m => m.ModelModel.AddedBy, new { @Value = User.Identity.GetUserId() })
+
+            <div class="col-2">
+                <button class="btn btn-primary">Add</button>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+<!-- list of makes -->
+<div class="row">
+    <div class="p-4 mb-4 bg-light rounded-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Make</td>
+                    <td>Model</td>
+                    <td>Date Added</td>
+                    <td>User</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model.ModelReports)
+                {
+                    <tr>
+                        <td>@m.MakeName</td>
+                        <td>@m.ModelName</td>
+                        <td>@m.DateAdded.ToShortDateString()</td>
+                        <td>@m.AddedBy</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

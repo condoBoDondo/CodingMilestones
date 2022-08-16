@@ -1,0 +1,66 @@
+/*
+author: Conner Jensen
+created: 3-25-21
+revised: 4-6-21
+*/
+
+body {
+	background-color: #F2EAE8;
+	color: #1E0A03;
+}
+
+header, footer, .jumbotron {
+	background-color: #965B44;
+	color: #F2EAE8;
+}
+
+.carousel {
+	background-color: #965B44;
+	color: #F2EAE8;
+	text-align: center;
+	border-radius: .3rem;
+	padding: 8px 0px;
+	min-height: 80px;
+}
+
+.jumbotron {
+	padding-bottom: 16px;
+	margin-bottom: 0px;
+}
+
+footer {
+	text-align: center;
+	padding: 30px 0px;
+	border-radius: .3rem;
+}
+
+h1 {
+	margin: 0 auto;
+}
+
+nav {
+	padding: 8px 16px;
+	background-color: #D8C1B9;
+	border-top: thick #BD988A dotted;
+	border-bottom: thick #965B44 dotted;
+	border-radius: .3rem;
+}
+
+.btn {
+	background-color: #965B44;
+	color: #F2EAE8;
+	border: 2px #965B44 solid;
+}
+
+.btn:hover {
+	background-color: #F2EAE8;
+	color: #1E0A03;
+}
+
+section {
+	margin: 16px;
+}
+
+.cf {
+	clear: both;
+}

@@ -1,0 +1,65 @@
+﻿@model CarDealership.UI.Models.VehicleReportViewModel
+
+@{
+    ViewBag.Title = "ADMIN - INVENTORY REPORTS";
+}
+
+<h3>Inventory Report</h3>
+
+<!-- new cars -->
+<h5>New Vehicles</h5>
+<div class="row p-2 mb-2 bg-light rounded-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Year</td>
+                <td>Make</td>
+                <td>Model</td>
+                <td>Count</td>
+                <td>Stock Value</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var report in Model.NewVehicleReports)
+            {
+                <tr>
+                    <td>@report.Year</td>
+                    <td>@report.MakeName</td>
+                    <td>@report.ModelName</td>
+                    <td>@report.Count</td>
+                    <td>@report.StockValue.ToString("c")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- used cars -->
+<h5>Used Vehicles</h5>
+<div class="row p-2 mb-2 bg-light rounded-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Year</td>
+                <td>Make</td>
+                <td>Model</td>
+                <td>Count</td>
+                <td>Stock Value</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var report in Model.UsedVehicleReports)
+            {
+                <tr>
+                    <td>@report.Year</td>
+                    <td>@report.MakeName</td>
+                    <td>@report.ModelName</td>
+                    <td>@report.Count</td>
+                    <td>@report.StockValue.ToString("c")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

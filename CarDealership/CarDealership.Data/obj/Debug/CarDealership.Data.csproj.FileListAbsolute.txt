@@ -1,0 +1,11 @@
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\bin\Debug\CarDealership.Data.dll
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\bin\Debug\CarDealership.Data.pdb
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\bin\Debug\CarDealership.Models.dll
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\bin\Debug\Dapper.dll
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\bin\Debug\CarDealership.Models.pdb
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\bin\Debug\Dapper.xml
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\obj\Debug\CarDealership.Data.csproj.AssemblyReference.cache
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\obj\Debug\CarDealership.Data.csproj.CoreCompileInputs.cache
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\obj\Debug\CarDealership.Data.csproj.CopyComplete
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\obj\Debug\CarDealership.Data.dll
+D:\repos\online-net-2021-condoBoDondo\Summatives\m10-summative\CarDealership\CarDealership.Data\obj\Debug\CarDealership.Data.pdb

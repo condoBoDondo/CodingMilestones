@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "ADMIN - INDEX";
+}
+
+<h3>Admin Index</h3>
+
+<ul>
+    <li>@Html.ActionLink("Vehicles", "Vehicles", "Admin", null, new { @class = "" })</li>
+    <li>@Html.ActionLink("Makes", "Makes", "Admin", null, new { @class = "" })</li>
+    <li>@Html.ActionLink("Models", "Models", "Admin", null, new { @class = "" })</li>
+    <li>@Html.ActionLink("Specials", "Specials", "Admin", null, new { @class = "" })</li>
+    <li>@Html.ActionLink("Inventory Reports", "ReportInventory", "Admin", null, new { @class = "" })</li>
+    <li>@Html.ActionLink("Sales Reports", "ReportSale", "Admin", null, new { @class = "" })</li>
+    <li>@Html.ActionLink("Users", "Users", "Admin", null, new { @class = "" })</li>
+</ul>

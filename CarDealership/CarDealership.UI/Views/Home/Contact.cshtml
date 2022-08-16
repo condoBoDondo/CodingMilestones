@@ -1,0 +1,70 @@
+﻿@model CarDealership.UI.Models.ContactViewModel
+
+@{
+    ViewBag.Title = "CONTACT";
+}
+
+<h3>Contact Us</h3>
+
+<div class="row">
+    <div class="col-7">
+        @Html.ValidationSummary()
+
+        <!-- form -->
+        @using (Html.BeginForm("ContactAdd", "Home", FormMethod.Post, new { id = "formContact", enctype = "multipart/form-data" }))
+        {
+            <div class="row mb-2">
+                <label for="contactName" class="col-3 col-form-label"><strong>Name</strong></label>
+                <div class="col-9">
+                    @Html.TextBoxFor(m => m.Contact.Name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label for="contactEmail" class="col-3 col-form-label"><strong>Email</strong></label>
+                <div class="col-9">
+                    @Html.TextBoxFor(m => m.Contact.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label for="contactPhone" class="col-3 col-form-label"><strong>Phone</strong></label>
+                <div class="col-9">
+                    @Html.TextBoxFor(m => m.Contact.Phone, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <!-- determine whether to display "regarding" row -->
+            if (Model != null)
+            {
+                if (!string.IsNullOrEmpty(Model.Contact.Regarding))
+                {
+                    <div class="row mb-2">
+                        <label for="contactRegarding" class="col-3 col-form-label"><em>Regarding:</em></label>
+                        <div class="col-9">
+                            @Html.TextBoxFor(m => m.Contact.Regarding, new { @class = "form-control border border-0", @readonly = "readonly" })
+                        </div>
+                    </div>
+                }
+            }
+
+            <div class="row mb-2">
+                <label for="contactMessage" class="col-3 col-form-label"><strong>Message</strong></label>
+                <div class="col-9">
+                    @Html.TextAreaFor(m => m.Contact.Message, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12">
+                    <button class="btn btn-primary">Send Contact Info</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="col-5">
+        <!-- google maps embed -->
+        <iframe width="600" height="450" style="border:0" loading="lazy" allowfullscreen
+                src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJZUpksbVW9ocRO97hRgLoCcU&key=AIzaSyAfdNnlSz7n0ojG-toFZj17Iqle7dWSbC4">
+        </iframe>
+    </div>
+</div>

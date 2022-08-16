@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNet.Identity;
+
+@model CarDealership.UI.Models.MakeAddViewModel
+
+@{
+    ViewBag.Title = "ADMIN - MAKES";
+}
+
+<h3>Makes</h3>
+
+<!-- add form -->
+<div class="row">
+    <div class="p-4 mb-4 bg-light rounded-3">
+        @using (Html.BeginForm("MakeAdd", "Admin", FormMethod.Post, new { id = "formMake", enctype = "multipart/form-data" }))
+        {
+        @Html.ValidationSummary()
+        <div class="row mb-2">
+            <div class="col-10">
+                <div class="row">
+                    <label for="formMakeName" class="col-3 col-form-label"><strong>New Make</strong></label>
+                    <div class="col-9">
+                        @Html.TextBoxFor(m => m.Make.MakeName, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            @Html.HiddenFor(m => m.Make.AddedBy, new { @Value = User.Identity.GetUserId() })
+
+            <div class="col-2">
+                <button class="btn btn-primary">Add</button>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+<!-- list of makes -->
+<div class="row">
+    <div class="p-4 mb-4 bg-light rounded-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Make</td>
+                    <td>Date Added</td>
+                    <td>User</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var make in Model.MakeReports)
+                {
+                    <tr>
+                        <td>@make.MakeName</td>
+                        <td>@make.DateAdded.ToShortDateString()</td>
+                        <td>@make.AddedBy</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

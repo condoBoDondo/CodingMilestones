@@ -1,0 +1,107 @@
+﻿@model CarDealership.Models.Queries.VehicleDetails
+@{
+    ViewBag.Title = "DETAILS";
+}
+
+<h3>Vehicle Details</h3>
+
+<div class="row p-2 mt-4 rounded-3 bg-light">
+
+    @if (Model != null)
+    {
+        <div class="col-3">
+            <strong>@Model.Year @Model.MakeName @Model.ModelName</strong>
+            <img class="img-fluid" src="@Url.Content("~/Images/"+Model.ImageFileName)" />
+        </div>
+        <div class="col-9">
+            <div class="row">
+                <div class="col-4">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="text-end"><strong>Body Style:</strong></td>
+                                <td>@Model.BodyStyleName</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>Trans:</strong></td>
+                                <td>@Model.TransmissionName</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>Color:</strong></td>
+                                <td>@Model.ExteriorName</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="text-end"><strong>Interior:</strong></td>
+                                <td>@Model.InteriorName</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>Mileage:</strong></td>
+                                <td>
+                                    @if (Model.Mileage > 1000)
+                                    {@Model.Mileage}
+                                    else
+                                    {<text>New</text>}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>VIN #:</strong></td>
+                                <td>@Model.VIN</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="text-end"><strong>Sale Price:</strong></td>
+                                <td>@Model.SalePrice.ToString("c")</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>MSRP:</strong></td>
+                                <td>@Model.MSRP.ToString("c")</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="text-end" width="100px"><strong>Description:</strong></td>
+                                <td>@Model.Description</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4">
+                    <!-- handle whether featured or already purchased -->
+                    @if (Model.ListingStatusId != 3)
+                    {
+                        @Html.ActionLink("Contact Us About This", "Contact", "Home", new { regarding = "VIN# " + Model.VIN }, new { @class = "btn btn-primary" })
+                    }
+                    else
+                    {
+                        <button class="btn btn-secondary" disabled>Already Purchased</button>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>The specified vehicle could not be found.</p>
+    }
+</div>

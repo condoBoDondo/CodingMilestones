@@ -1,0 +1,69 @@
+﻿@model CarDealership.UI.Models.SpecialAddViewModel
+
+@{
+    ViewBag.Title = "ADMIN - SPECIALS";
+}
+
+<h3>Specials</h3>
+
+<!-- add form -->
+<div class="row">
+    <div class="p-4 mb-4 bg-light rounded-3">
+        @using (Html.BeginForm("SpecialAdd", "Admin", FormMethod.Post, new { id = "formSpecial", enctype = "multipart/form-data" }))
+        {
+        @Html.ValidationSummary()
+        <div class="row mb-2">
+            <label for="formSpecialTitle" class="col-3 col-form-label"><strong>Title</strong></label>
+            <div class="col-9">
+                @Html.TextBoxFor(m => m.Special.Title, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label for="formSpecialDescription" class="col-3 col-form-label"><strong>Description</strong></label>
+            <div class="col-9">
+                @Html.TextAreaFor(m => m.Special.Description, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-12">
+                <button class="btn btn-primary">Add</button>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+<!-- list of specials -->
+<div class="row">
+    <div class="p-4 mb-4 bg-light rounded-3">
+        @foreach (var special in Model.Specials)
+        {
+            <div class="container-fluid p-4 mb-3 rounded-3 bg-primary bg-opacity-10">
+                <div class="row">
+                    <div class="col-2">
+                        <img class="img-fluid" src="~/Images/sale.png" />
+                    </div>
+                    <div class="col-10">
+                        <div class="row">
+                            <div class="col-10">
+                                <h1 class="display-5 fw-bold">@special.Title</h1>
+                            </div>
+                            <div class="col-2">
+                                @using (Html.BeginForm("SpecialDelete", "Admin", new { id = special.SpecialId }, FormMethod.Post))
+                                {
+                                    <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete @special.Title?');">Delete</button>
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-8 fs-4">
+                                @special.Description
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

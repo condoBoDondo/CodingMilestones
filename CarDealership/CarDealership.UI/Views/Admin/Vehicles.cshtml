@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "ADMIN - VEHICLES INDEX";
+}
+
+<h3>Vehicles</h3>
+@Html.ActionLink("Add new Vehicle", "VehicleAdd", "Admin", null, new { @class = "btn btn-success" })
+
+<form id="searchForm" class="row p-2 bg-light rounded-3">
+    <div class="row">
+        <strong>Quick Search</strong>
+    </div>
+    <div class="row gy-2 gy-lg-0 mb-2">
+        <div class="col-12 col-lg-4">
+            <input type="text" class="form-control" id="searchInput" placeholder="Enter Make, Model, or Year" />
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="row">
+                <label class="fw-bold col-2 col-form-label" for="minPrice">Price</label>
+                <div class="col-5">
+                    <input type="text" class="form-control" id="minPrice" placeholder="No Min" />
+                </div>
+                <div class="col-5">
+                    <input type="text" class="form-control" id="maxPrice" placeholder="No Max" />
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="row">
+                <label class="fw-bold col-2 col-form-label" for="minYear">Year</label>
+                <div class="col-5">
+                    <input type="text" class="form-control" id="minYear" placeholder="No Min" />
+                </div>
+                <div class="col-5">
+                    <input type="text" class="form-control" id="maxYear" placeholder="No Max" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-grid gap-2 col-6 col-lg-4 mx-auto">
+            <button type="submit" onclick="search()" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<div id="searchResults" class="row">
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#searchForm').submit(function (e) { // on clicking search button
+                search();
+                return false; // not submitting to server; staying on current page
+            });
+        });
+
+        function search() {
+            var imagePath = '@Url.Content("~/Images/")';
+            var editPath = '@Url.Action("VehicleEdit", "Admin")';
+            var params = ''; // get params from form input
+            params += 'searchInput=' + $('#searchInput').val() + '&';
+            params +=    'minPrice=' +    $('#minPrice').val() + '&';
+            params +=    'maxPrice=' +    $('#maxPrice').val() + '&';
+            params +=     'minYear=' +     $('#minYear').val() + '&';
+            params +=     'maxYear=' +     $('#maxYear').val() + '&';
+            params += 'mode=admin';
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/vehicle/search?' + params,
+                success: function (results) {
+                    // clear search results
+                    $('#searchResults').empty();
+
+                    // add search results
+                    $.each(results, function (index, vehicle) {
+                        var mileageText = vehicle.Mileage > 1000 ? "(Used)" : "(New)";
+                        var featuredText = '';
+                        if (vehicle.ListingStatusId == 1) {
+                            featuredText += '<span class="text-danger"><strong>(Not Featured)</strong></span>';
+                        } else {
+                            featuredText += '<span class="text-success"><strong>(Featured)</strong></span>';
+                        }
+
+                        var html =
+                            '<div class="col-12">' +
+                                '<div class="p-2 mt-4 rounded-3 bg-light">' +
+                                    '<div class="row">' +
+                                        '<div class="col-2">' +
+                                            '<strong>' + vehicle.Year + ' ' + vehicle.MakeName + ' ' + vehicle.ModelName + '</strong>' +
+                                            '<img class="img-fluid" src="' + imagePath + vehicle.ImageFileName + '" /><br />' +
+                                            featuredText +
+                                        '</div>' +
+                                        '<div class="col-3">' +
+                                            '<table>' +
+                                                '<tbody>' +
+                                                    '<tr>' +
+                                                        '<td class="text-end"><strong>Body Style:</strong></td>' +
+                                                        '<td>' + vehicle.BodyStyleName + '</td>' +
+                                                    '</tr>' +
+                                                    '<tr>' +
+                                                        '<td class="text-end"><strong>Trans:</strong></td>' +
+                                                        '<td>' + vehicle.TransmissionName + '</td>' +
+                                                    '</tr>' +
+                                                    '<tr>' +
+                                                        '<td class="text-end"><strong>Color:</strong></td>' +
+                                                        '<td>' + vehicle.ExteriorName + '</td>' +
+                                                    '</tr>' +
+                                                '</tbody>' +
+                                            '</table>' +
+                                        '</div>' +
+                                        '<div class="col-4">' +
+                                            '<table>' +
+                                                '<tbody>' +
+                                                    '<tr>' +
+                                                        '<td class="text-end"><strong>Interior:</strong></td>' +
+                                                        '<td>' + vehicle.InteriorName + '</td>' +
+                                                    '</tr>' +
+                                                    '<tr>' +
+                                                        '<td class="text-end"><strong>Mileage:</strong></td>' +
+                                                        '<td>' + vehicle.Mileage + ' ' + mileageText + '</td>' +
+                                                    '</tr>' +
+                                                    '<tr>' +
+                                                        '<td class="text-end"><strong>VIN #:</strong></td>' +
+                                                        '<td>' + vehicle.VIN + '</td>' +
+                                                    '</tr>' +
+                                                '</tbody>' +
+                                            '</table>' +
+                                        '</div>' +
+                                        '<div class="col-3">' +
+                                            '<table>' +
+                                                '<tbody>' +
+                                                    '<tr>' +
+                                                        '<td class="text-end"><strong>Sale Price:</strong></td>' +
+                                                        '<td>' + vehicle.SalePrice + '</td>' +
+                                                    '</tr>' +
+                                                    '<tr>' +
+                                                        '<td class="text-end"><strong>MSRP:</strong></td>' +
+                                                        '<td>' + vehicle.MSRP + '</td>' +
+                                                    '</tr>' +
+                                                    '<tr>' +
+                                                        '<td colspan="2" class="text-end"><a href="' + editPath + '/' + vehicle.VehicleId + '" class="btn btn-success">Edit</a></td>' +
+                                                    '</tr>' +
+                                                '</tbody>' +
+                                            '</table>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>';
+                        $('#searchResults').append(html.toString());
+                    });
+                },
+                error: function () {
+                    alert('Error performing search. Try again later.');
+                }
+            });
+        }
+    </script>
+}

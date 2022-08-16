@@ -1,0 +1,43 @@
+﻿@model CarDealership.UI.Models.UserAddViewModel
+
+@{
+    ViewBag.Title = "ADMIN - ADD USER";
+}
+
+<h3>Add User</h3>
+
+<div class="p-4 mb-4 bg-light rounded-3">
+    @using (Html.BeginForm("UserAdd", "Admin", FormMethod.Post, new { id = "formUserAdd", @class = "row g-3", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        <div class="col-md-6">
+            <label class="form-label">First Name</label>
+            @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Last Name</label>
+            @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Role</label>
+            @Html.DropDownListFor(m => m.User.RoleName, Model.Roles, new { @class = "form-select" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Password</label>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Confirm Password</label>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary">Add User</button>
+        </div>
+    }
+</div>
